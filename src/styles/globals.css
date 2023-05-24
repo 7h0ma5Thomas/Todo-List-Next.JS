@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* ////////////////// CSS /////////////////// */
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: x-large;
+}
+
+.mainContainer{
+  width: 100%;
+  height: 900px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-flow: column wrap;
+  padding: 30px 0 30px 0;
+  border: solid white 1px;
+}
+
+.mainTitle{
+  height: 60px;
+  width: 250px;
+  font-size: xx-large;
+  border: solid white 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  box-shadow: 0 3px 4px rgba(236, 236, 236, 0.8);
+}
+
+.todosContainer{
+  height: 600px;
+  width: 50%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.addTodoContainer{
+  width: 60%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input{
+  width: 70%;
+  height: 50px;
+  color: grey;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.button{
+  width: 25%;
+  height: 50px;
+  background-color: #43ff64d9;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.allTodos{
+  width: 60%;
+  height: 400px;
+  border-top: solid 1px rgb(214, 214, 214);
+}
+
+.todos{
+  border: dotted whitesmoke 1px;
+  background-color: rgba(231, 231, 231, 0.15);
+  border-radius: 10px;
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  padding: 0 15px 0 15px;
+  display: flex;
+  align-items: center;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #21eb46d9;
+}
+
+/* classes tailwindcss personnalisées */
