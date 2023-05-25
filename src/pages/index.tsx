@@ -5,6 +5,7 @@ import Search from '@/components/Search'
 import supabase from '../Lib/supabase'
 import { GetStaticProps } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function Home({ data }) {
   const [todos, setTodos] = useState(data)
@@ -42,11 +43,18 @@ export default function Home({ data }) {
     const newTodos = [
       ...todos
     ]
+    
     const todosIndex = todos.findIndex((todo) => id === todo.id)
     newTodos[todosIndex].completed = !newTodos[todosIndex].completed
     setTodos(newTodos)
 
-    await checkSupaTodo(id, newTodos, todosIndex);
+    try {
+      await checkSupaTodo("dsfdsfdsfdsfdsfsdf",newTodos[todosIndex].completed);
+      
+    } catch (error) {
+      console.log('error index', error)
+      toast.error(error.message)
+    }
   }
   
   const handleEdit = async (updatedTodo) => {
@@ -104,7 +112,8 @@ export default function Home({ data }) {
           onSubmit={(todo) => handleSubmit(todo)} 
           todo={selectedTodo}
           onClose={() => setShowModal(false)}
-        />}
+      />}
+      <ToastContainer />
         </>
     
   )

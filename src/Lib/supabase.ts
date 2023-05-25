@@ -46,22 +46,18 @@ export const deleteSupaTodo = async (id) => {
     }
 }
 
-export const checkSupaTodo = async (id, newTodos, todosIndex) => {
+export const checkSupaTodo = async (id, completed) => {
   try {
     // Mettre à jour le statut de la todo dans la base de données Supabase
     const { error } = await supabase
       .from('todos')
-      .update({ completed: newTodos[todosIndex].completed })
-      .eq('id', id);
-
+      .update({ completed: completed })
+      .eq('id', id)
     if (error) {
-      console.error(error);
-      // Gérer l'erreur de mise à jour de la base de données
-    } else {
-      console.log('Statut de la todo mis à jour avec succès');
+      throw error;
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     // Gérer les erreurs lors de la mise à jour de la base de données
   }
 }
