@@ -89,7 +89,6 @@ export default function Home({ data }) {
   return (
     <>
       <main className='mainContainer'>
-        
         <h1 className='mainTitle'>Ma Todo Liste !</h1>
         <Search 
           onChange={(searchTodo) => handleFilterTodo(searchTodo)} 
