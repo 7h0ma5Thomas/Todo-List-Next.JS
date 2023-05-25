@@ -12,7 +12,7 @@ export default function TodoRow({ todo, onDeleteTodo, onChange, onShow }) {
 			<div className="iconsContainer">
                 <input
 					type="checkbox"
-					value={todo.completed}
+					defaultChecked={todo.completed}
 					onChange={onChange}
 					className="check"
 				/>

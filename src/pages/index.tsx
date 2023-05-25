@@ -46,7 +46,7 @@ export default function Home({ data }) {
     newTodos[todosIndex].completed = !newTodos[todosIndex].completed
     setTodos(newTodos)
 
-    await checkSupaTodo(id, newTodos, todosIndex);
+    await checkSupaTodo(id, newTodos[todosIndex].completed);
   }
   
   const handleEdit = async (updatedTodo) => {
