@@ -1,3 +1,5 @@
+
+
 import { useState } from 'react'
 import TodoRow from '@/components/TodoRow'
 import EditTodo from '@/components/EditTodo'
@@ -12,6 +14,8 @@ export default function Home({ data }) {
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [showModal, setShowModal] = useState(false)
+
+  const notify = () => toast("Wow so easy !", { position: toast.POSITION.TOP_CENTER });
 
 
   const handleCreateTodo = async (todo) => {
@@ -53,7 +57,7 @@ export default function Home({ data }) {
       
     } catch (error) {
       console.log('error index', error)
-      toast.error(error.message)
+      notify()
     }
   }
   
@@ -89,6 +93,7 @@ export default function Home({ data }) {
   return (
     <>
       <main className='mainContainer'>
+        
         <h1 className='mainTitle'>Ma Todo Liste !</h1>
         <Search 
           onChange={(searchTodo) => handleFilterTodo(searchTodo)} 
@@ -113,7 +118,7 @@ export default function Home({ data }) {
           todo={selectedTodo}
           onClose={() => setShowModal(false)}
       />}
-      <ToastContainer />
+      
         </>
     
   )

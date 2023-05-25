@@ -54,11 +54,10 @@ export const checkSupaTodo = async (id, completed) => {
       .update({ completed: completed })
       .eq('id', id)
     if (error) {
-      throw error;
+      throw error
     }
   } catch (error) {
-    // console.error(error);
-    // Gérer les erreurs lors de la mise à jour de la base de données
+    throw error
   }
 }
 
