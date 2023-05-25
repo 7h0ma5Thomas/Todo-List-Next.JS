@@ -12,7 +12,7 @@ export default function TodoRow({ todo, onDeleteTodo, onChange, onShow }) {
 			<div className="flex gap-2 items-center">
                 <input
 					type="checkbox"
-					value={todo.completed}
+					defaultChecked={todo.completed}
 					onChange={onChange}
 					className="h-5 w-5"
 				/>
