@@ -46,12 +46,12 @@ export const deleteSupaTodo = async (id) => {
     }
 }
 
-export const checkSupaTodo = async (id, newTodos, todosIndex) => {
+export const checkSupaTodo = async (id, completed) => {
   try {
     // Mettre à jour le statut de la todo dans la base de données Supabase
     const { error } = await supabase
       .from('todos')
-      .update({ completed: newTodos[todosIndex].completed })
+      .update({ completed: completed })
       .eq('id', id);
 
     if (error) {
