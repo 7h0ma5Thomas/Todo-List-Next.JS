@@ -24,6 +24,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    min-height: 100vh;
+    padding: 10px;
 }
 
 /* ////////////////// CSS /////////////////// */
@@ -36,53 +38,81 @@ body {
 }
 
 .mainContainer{
+  position: relative;
   width: 100%;
-  height: 900px;
+  min-height: 100vh;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
-  flex-flow: column wrap;
-  padding: 30px 0 30px 0;
   border: solid white 1px;
 }
 
+.pulse{
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  z-index: -1;
+  animation: Pulse 5s ease-in-out 0s infinite normal both;
+  -webkit-animation: Pulse 5s ease-in-out 0s infinite normal both;
+}
+
 .mainTitle{
-  height: 60px;
-  width: 250px;
+  height: 80px;
+  width: 30%;
   font-size: xx-large;
+  font-weight: bolder;
   border: solid white 1px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 35px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  box-shadow: 0 3px 4px rgba(236, 236, 236, 0.8);
+  box-shadow: 0 0px 8px 2px rgba(236, 236, 236, 0.8);
+}
+
+@media screen and (max-width: 900px) {
+  .mainTitle{
+    width: 260px;
+  }
 }
 
 .todosContainer{
-  height: 600px;
-  width: 50%;
+  height: auto;
+  width: 30%;
   display: flex;
-  flex-flow: column wrap;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
 }
 
+@media screen and (max-width: 900px) {
+  .todosContainer{
+    width: 65%;
+  }
+}
+
 .addTodoContainer{
-  width: 60%;
-  height: 60px;
+  width: 30%;
+  height: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  margin: 100px auto 40px auto;
+}
+
+@media screen and (max-width: 900px) {
+  .addTodoContainer{
+    width: 260px;
+  }
 }
 
 .input{
   width: 70%;
   height: 50px;
   color: grey;
+  padding-left: 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -90,9 +120,16 @@ body {
   -o-border-radius: 10px;
 }
 
+@media screen and (max-width: 900px) {
+  .input{
+    width: 100%;
+  }
+}
+
 .button{
-  width: 25%;
+  width: 45%;
   height: 50px;
+  margin-bottom: 30px;
   background-color: #43ff64d9;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -101,31 +138,92 @@ body {
   -o-border-radius: 10px;
 }
 
+@media screen and (max-width: 900px) {
+  .button{
+    width: 170px;
+  }
+}
+
+
 .allTodos{
-  width: 60%;
-  height: 400px;
+  width: 100%;
+  height: auto;
   border-top: solid 1px rgb(214, 214, 214);
 }
 
-.todos{
-  border: dotted whitesmoke 1px;
-  background-color: rgba(231, 231, 231, 0.15);
-  border-radius: 10px;
+@keyframes Pulse {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+    box-shadow: 0px 0px 12px 6px #ffffff
+	}
+
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+
+/* //////////////////// TodoRow //////////////// */
+
+.todo{
   width: 100%;
-  height: 50px;
-  margin-top: 15px;
-  padding: 0 15px 0 15px;
+  height: auto;
+  padding: 0.5rem;
   display: flex;
-  align-items: center;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+}
+
+.todoContent{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 15px 0 0 15px;
+  -webkit-border-radius: 15px 0 0 15px;
+  -moz-border-radius: 15px 0 0 15px;
+  -ms-border-radius: 15px 0 0 15px;
+  -o-border-radius: 15px 0 0 15px;
+  border: solid rgb(30, 255, 0) 1px;
+}
+
+.iconsContainer{
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #ffffff;
+  padding: 10px 10px;
+  border-radius:  0 15px 15px 0px;
+  border: solid red 1px;
+  -webkit-border-radius:  0 15px 15px 0px;
+  -moz-border-radius:  0 15px 15px 0px;
+  -ms-border-radius:  0 15px 15px 0px;
+  -o-border-radius:  0 15px 15px 0px;
+}
+
+.check{
+  width: 30px;
+  height: 30px;
+  border: solid #e5e7eb 2px;
+  margin: 8px 25px 0 0;
+  cursor: pointer;
 }
 
 .completed {
   text-decoration: line-through;
   color: #21eb46d9;
+  text-shadow: 0px 4px 4px #85858500;
+}
+
+h3{
+  font-weight: bold;
+  color: black;
+  text-shadow: 0px 4px 4px #858585;
+}
+
+p{
+  color: #575757;
 }
 
 /* classes tailwindcss personnalisées */

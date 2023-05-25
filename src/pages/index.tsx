@@ -81,12 +81,13 @@ export default function Home({ data }) {
   return (
     <>
       <main className='mainContainer'>
+       
         <h1 className='mainTitle'>Ma Todo Liste !</h1>
         <Search 
           onChange={(searchTodo) => handleFilterTodo(searchTodo)} 
         />
         <div className='todosContainer'>
-          <button onClick={() => setShowModal(true)}>Ajouter</button>
+          <button className='button' onClick={() => setShowModal(true)}>Ajouter</button>
           <div className='allTodos'>
             {filteredTodos.map((todo) => (
                 < TodoRow 
@@ -99,6 +100,7 @@ export default function Home({ data }) {
               ))}
           </div> 
         </div>
+        <div className='pulse'></div>
       </main>
         {showModal && <EditTodo 
           onSubmit={(todo) => handleSubmit(todo)} 
