@@ -7,15 +7,12 @@ import Search from '@/components/Search'
 import supabase from '../Lib/supabase'
 import { GetStaticProps } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
-import { ToastContainer, toast } from 'react-toastify'
 
 export default function Home({ data }) {
   const [todos, setTodos] = useState(data)
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [showModal, setShowModal] = useState(false)
-
-  const notify = () => toast("Wow so easy !", { position: toast.POSITION.TOP_CENTER });
 
 
   const handleCreateTodo = async (todo) => {
@@ -57,7 +54,6 @@ export default function Home({ data }) {
       
     } catch (error) {
       console.log('error index', error)
-      notify()
     }
   }
   
@@ -118,7 +114,6 @@ export default function Home({ data }) {
           todo={selectedTodo}
           onClose={() => setShowModal(false)}
       />}
-      
         </>
     
   )
