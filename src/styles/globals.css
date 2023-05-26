@@ -185,7 +185,6 @@ body {
   -moz-border-radius: 15px 0 0 15px;
   -ms-border-radius: 15px 0 0 15px;
   -o-border-radius: 15px 0 0 15px;
-  border: solid rgb(30, 255, 0) 1px;
 }
 
 .iconsContainer{
@@ -195,7 +194,6 @@ body {
   background-color: #ffffff;
   padding: 10px 10px;
   border-radius:  0 15px 15px 0px;
-  border: solid red 1px;
   -webkit-border-radius:  0 15px 15px 0px;
   -moz-border-radius:  0 15px 15px 0px;
   -ms-border-radius:  0 15px 15px 0px;
