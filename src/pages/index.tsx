@@ -1,67 +1,84 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TodoRow from '@/components/TodoRow'
 import EditTodo from '@/components/EditTodo'
 import Search from '@/components/Search'
 import supabase from '../Lib/supabase'
 import { GetStaticProps } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
+import { useTodos, Todo } from '@/Lib/todos'
+import { ToastContainer, toast, Slide, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Home({ data }) {
-  const [todos, setTodos] = useState(data)
+type HomeProps = {
+  data: Todo[]
+}
+
+export default function Home({ data } : HomeProps) {
+  
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const { todos, initTodos, addTodo, deleteTodo, checkTodo, updateTodo } = useTodos()
 
 
-  const handleCreateTodo = async (todo) => {
-    setTodos([...todos, todo].sort((a, b) => a.name.localeCompare(b.name)))
+  useEffect(() => {
+    initTodos(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    await createSupaTodo(todo);
+  const notify = (message: string, type, transition = Slide) => {
+    toast(message, {
+      position: "top-right",
+      type: type,
+      transition: transition,
+      theme: "colored"
+    })
   }
 
-  const handleSubmit = (todo) => {
+  const handleSubmit = async (todo: Todo) => {
     if (selectedTodo === null) {
-      handleCreateTodo(todo)
+      // handleCreateTodo(todo)
+      addTodo(todo)
+      await createSupaTodo(todo).then((response) => {
+        notify(response, "success")
+      })
+        .catch(error => {
+        notify(error.message, "error")
+      })
     } else {
-      handleEdit(todo)
+      // handleEdit(todo)
+      updateTodo(todo)
+      await updateSupaTodo(todo).then((response) => {
+        notify(response, "success")
+      })
+        .catch(error => {
+        notify(error.message, "error")
+      })
     }
-  }
-
-  const handleDeleteTodo = async (id) => {
-    const newTodos = [
-      ...todos
-    ]
-    const todosIndex = todos.findIndex((todo) => id === todo.id)
-    newTodos.splice(todosIndex, 1)
-    setTodos(newTodos)
-
-    await deleteSupaTodo(id);
-  }
-
-  const handleCheckTodo = async (id) => {
-    const newTodos = [
-      ...todos
-    ]
-    const todosIndex = todos.findIndex((todo) => id === todo.id)
-    newTodos[todosIndex].completed = !newTodos[todosIndex].completed
-    setTodos(newTodos)
-
-    await checkSupaTodo(id, newTodos[todosIndex].completed);
-  }
-  
-  const handleEdit = async (updatedTodo) => {
-    if (selectedTodo === null) return
-
-    await updateSupaTodo(updatedTodo, selectedTodo);
-  
-    const newTodos = [
-      ...todos
-    ]
-    const todosIndex = todos.findIndex((todo) => selectedTodo.id === todo.id)
-    newTodos[todosIndex] = updatedTodo
-    setTodos(newTodos)
     setSelectedTodo(null)
-  } 
+  }
+
+  const handleDeleteTodo = async (id: string) => {
+    deleteTodo(id)
+    await deleteSupaTodo(id).then((response) => {
+      notify(response, "success")
+    })
+      .catch(error => {
+      notify(error.message, "error")
+    })
+  }
+
+  const handleCheckTodo = async (id: string) => {
+    
+    const completed = checkTodo(id)
+    await checkSupaTodo(id, completed).then((response) => {
+      notify(response, "success")
+    })
+      .catch(error => {
+      notify(error.message, "error")
+    })
+  }
+
 
   const handleFilterTodo = (searchTodo) => {
     setSearchText(searchTodo)
@@ -101,6 +118,7 @@ export default function Home({ data }) {
           </div> 
         </div>
         <div className='pulse'></div>
+        <ToastContainer />
       </main>
         {showModal && <EditTodo 
           onSubmit={(todo) => handleSubmit(todo)} 
