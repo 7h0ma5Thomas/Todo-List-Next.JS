@@ -72,10 +72,10 @@ export default function Home({ data } : HomeProps) {
     
     const completed = checkTodo(id)
     await checkSupaTodo(id, completed).then((response) => {
-      notify(response, "success")
+      console.log(response);
     })
       .catch(error => {
-      notify(error.message, "error")
+        console.log(error);
     })
   }
 
@@ -124,6 +124,7 @@ export default function Home({ data } : HomeProps) {
           onSubmit={(todo) => handleSubmit(todo)} 
           todo={selectedTodo}
           onClose={() => setShowModal(false)}
+          notify={notify}
         />}
         </>
     

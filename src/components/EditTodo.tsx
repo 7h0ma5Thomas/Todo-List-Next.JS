@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-//test
-export default function EditTodo({ onSubmit, todo, onClose }) {
+import React from "react";
+
+export default function EditTodo({ onSubmit, todo, onClose, notify }) {
   const titleButton = todo === null ? "Créer" : "Modifier"
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -13,16 +14,21 @@ export default function EditTodo({ onSubmit, todo, onClose }) {
         content,
         completed: false
       }
-      onSubmit(newTodo)
+      newTodo.name !== '' ? 
+        onSubmit(newTodo) + onClose() : 
+        notify("Vous devez nommer votre tâche afin de la créer", "error")
     } else {
       const updatedTodo = {
         ...todo,
         name,
         content
       }
-      onSubmit(updatedTodo)
+      name !== todo.name || content !== todo.content ? 
+        onSubmit(updatedTodo) + onClose() : 
+        notify("Aucune modification apportée à la tâche", "warning")
+      
     }
-    onClose()
+    
   }
 
   return (
