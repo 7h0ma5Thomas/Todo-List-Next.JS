@@ -1,6 +1,9 @@
 
+type SearchProps = {
+	onChange: (searchTodo: string) => void
+}
 
-export default function Search({ onChange }) {
+export default function Search({ onChange } : SearchProps) {
 	const handleChange = (e) => {
 		const searchTodo = e.target.value
 		onChange(searchTodo)

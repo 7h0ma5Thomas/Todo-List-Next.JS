@@ -6,7 +6,7 @@ import supabase from '../Lib/supabase'
 import { GetStaticProps } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
 import { useTodos, Todo } from '@/Lib/todos'
-import { ToastContainer, toast, Slide, Zoom } from 'react-toastify';
+import { ToastContainer, toast, Slide, Zoom, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 type HomeProps = {
@@ -15,18 +15,18 @@ type HomeProps = {
 
 export default function Home({ data } : HomeProps) {
   
-  const [selectedTodo, setSelectedTodo] = useState(null)
+  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null)
   const [searchText, setSearchText] = useState('')
   const [showModal, setShowModal] = useState(false)
-  const { todos, initTodos, addTodo, deleteTodo, checkTodo, updateTodo } = useTodos()
+  const { todos, addTodo, deleteTodo, checkTodo, updateTodo } = useTodos(data)
 
 
-  useEffect(() => {
-    initTodos(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   initTodos(data)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  const notify = (message: string, type, transition = Slide) => {
+  const notify = (message: string, type: TypeOptions, transition = Slide) => {
     toast(message, {
       position: "top-right",
       type: type,
@@ -47,13 +47,15 @@ export default function Home({ data } : HomeProps) {
       })
     } else {
       // handleEdit(todo)
-      updateTodo(todo)
-      await updateSupaTodo(todo).then((response) => {
+      if (updateTodo(todo)) {
+        await updateSupaTodo(todo).then((response) => {
         notify(response, "success")
       })
         .catch(error => {
         notify(error.message, "error")
       })
+      }
+      
     }
     setSelectedTodo(null)
   }
@@ -80,7 +82,7 @@ export default function Home({ data } : HomeProps) {
   }
 
 
-  const handleFilterTodo = (searchTodo) => {
+  const handleFilterTodo = (searchTodo: string) => {
     setSearchText(searchTodo)
   }
   
@@ -89,7 +91,7 @@ export default function Home({ data } : HomeProps) {
     todo.content.toLowerCase().includes(searchText.toLowerCase())  
   )
 
-  const handleShowModal = (todo) => {
+  const handleShowModal = (todo: Todo) => {
     setSelectedTodo(todo)
     setShowModal(true)
   }
@@ -135,7 +137,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await supabase
     .from('todos')
     .select()
-    console.log(data);
     
   return { props: { data } };
 };

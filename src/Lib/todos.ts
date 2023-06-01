@@ -6,12 +6,12 @@ export type Todo = {
     completed: boolean
 }
 
-export const useTodos = () => {
-    const [todos, setTodos] = useState<Todo[]>([])
+export const useTodos = (newTodos?: Todo[]) => {
+    const [todos, setTodos] = useState(newTodos || [])
 
-    const initTodos = (todos: Todo[]) => {
-        setTodos(todos)
-    }
+    // const initTodos = (todos: Todo[]) => {
+    //     setTodos(todos)
+    // }
 
     const addTodo = (todo: Todo) => {
         setTodos([...todos, todo].sort((a, b) => a.name.localeCompare(b.name)))
@@ -21,16 +21,27 @@ export const useTodos = () => {
         const newTodos = [
             ...todos
           ]
-          const todosIndex = todos.findIndex((todo) => updatedTodo.id === todo.id)
-          newTodos[todosIndex] = updatedTodo
-          setTodos(newTodos)
+        const todosIndex = todos.findIndex((todo) => updatedTodo.id === todo.id)
+        if (updatedTodo.name === newTodos[todosIndex].name &&
+            updatedTodo.content === newTodos[todosIndex].content &&
+            updatedTodo.completed === newTodos[todosIndex].completed) {
+            console.log("No change")
+            return false
+        }
+        newTodos[todosIndex] = updatedTodo
+        setTodos(newTodos)
+        return true
     }
 
     const deleteTodo = (id: string) => {
         const newTodos = [
             ...todos
           ]
-          const todosIndex = findIndex(id)
+        const todosIndex = findIndex(id)
+        // Rajout pour être sûr que l'index existe
+        if (todosIndex === -1) {
+            return
+        }
           newTodos.splice(todosIndex, 1)
         setTodos(newTodos)
         
@@ -53,7 +64,7 @@ export const useTodos = () => {
     }
 
     return {
-        initTodos,
+        // initTodos,
         addTodo,
         updateTodo,
         deleteTodo,
