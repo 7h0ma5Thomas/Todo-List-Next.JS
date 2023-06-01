@@ -1,12 +1,25 @@
 import { v4 as uuidv4 } from "uuid";
-import React from "react";
+import React, { FormEvent } from "react";
+import { Todo } from "@/Lib/todos";
+import { TypeOptions } from "react-toastify";
 
-export default function EditTodo({ onSubmit, todo, onClose, notify }) {
+type EditTodoProps = {
+  onSubmit: (todo: Todo) => void
+  todo: Todo | null
+  onClose: () => void
+  notify: (message: string, type: TypeOptions, transition?: any) => void
+}
+
+export default function EditTodo({ onSubmit, todo, onClose, notify } : EditTodoProps) {
   const titleButton = todo === null ? "Créer" : "Modifier"
   const handleSubmit = (e) => {
     e.preventDefault()
     const name = e.target.name.value
     const content = e.target.content.value
+    if (name === '') {
+      notify("Vous devez nommer votre tâche afin de la créer", "error")
+      return
+    }
     if (todo === null) {
       const newTodo = {
         id: uuidv4(),
@@ -14,21 +27,16 @@ export default function EditTodo({ onSubmit, todo, onClose, notify }) {
         content,
         completed: false
       }
-      newTodo.name !== '' ? 
-        onSubmit(newTodo) + onClose() : 
-        notify("Vous devez nommer votre tâche afin de la créer", "error")
+      onSubmit(newTodo)
     } else {
       const updatedTodo = {
         ...todo,
         name,
         content
       }
-      name !== todo.name || content !== todo.content ? 
-        onSubmit(updatedTodo) + onClose() : 
-        notify("Aucune modification apportée à la tâche", "warning")
-      
+      onSubmit(updatedTodo)
     }
-    
+    onClose()
   }
 
   return (

@@ -1,7 +1,16 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import { FiEdit } from "react-icons/fi";
+import { Todo } from "@/Lib/todos";
 
-export default function TodoRow({ todo, onDeleteTodo, onChange, onShow }) {
+type TodoRowProps = {
+	todo: Todo;
+	onDeleteTodo: () => void;
+	onChange: () => void;
+	onShow: () => void;
+
+}
+
+export default function TodoRow({ todo, onDeleteTodo, onChange, onShow } : TodoRowProps) {
 	return (
 		<div className="todo">
 			<div className="todoContent">
