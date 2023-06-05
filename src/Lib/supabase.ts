@@ -1,17 +1,20 @@
-import { createClient } from "@supabase/supabase-js";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { Todo } from "./todos";
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_ANON_KEY
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 const supabase = createClient(supabaseUrl as string, supabaseKey as string)
 
 export default supabase
 
+const supabaseClient = createPagesBrowserClient()
+
 export const createSupaTodo = async (todo: Todo) => {
   try {
       // Ajouter la nouvelle todo à la base de données Supabase
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('todos') 
         .insert(todo);
   
@@ -30,7 +33,7 @@ export const createSupaTodo = async (todo: Todo) => {
 export const deleteSupaTodo = async (id: string) => {
   try {
       // Supprimer le todo de la base de données Supabase
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('todos')
         .delete()
         .eq('id', id);
@@ -50,7 +53,7 @@ export const deleteSupaTodo = async (id: string) => {
 export const checkSupaTodo = async (id: string, completed: boolean) => {
   try {
     // Mettre à jour le statut de la todo dans la base de données Supabase
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('todos')
       .update({ completed: completed })
       .eq('id', id);
@@ -70,7 +73,7 @@ export const checkSupaTodo = async (id: string, completed: boolean) => {
 export const updateSupaTodo = async (updatedTodo: Todo) => {
   try {
     // Mettre à jour le todo dans la base de données Supabase
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('todos')
       .update(updatedTodo)
       .eq('id', updatedTodo.id);

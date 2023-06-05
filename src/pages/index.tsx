@@ -3,28 +3,28 @@ import TodoRow from '@/components/TodoRow'
 import EditTodo from '@/components/EditTodo'
 import Search from '@/components/Search'
 import supabase from '../Lib/supabase'
-import { GetStaticProps } from "next";
+import { GetServerSidePropsContext  } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
 import { useTodos, Todo } from '@/Lib/todos'
 import { ToastContainer, toast, Slide, Zoom, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/router'
 
 type HomeProps = {
   data: Todo[]
+  session: any
 }
 
-export default function Home({ data } : HomeProps) {
+export default function Home({ data, session } : HomeProps) {
   
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null)
   const [searchText, setSearchText] = useState('')
   const [showModal, setShowModal] = useState(false)
   const { todos, addTodo, deleteTodo, checkTodo, updateTodo } = useTodos(data)
+  const router = useRouter()
 
-
-  // useEffect(() => {
-  //   initTodos(data)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  const userId = session.user.id
 
   const notify = (message: string, type: TypeOptions, transition = Slide) => {
     toast(message, {
@@ -37,9 +37,10 @@ export default function Home({ data } : HomeProps) {
 
   const handleSubmit = async (todo: Todo) => {
     if (selectedTodo === null) {
-      // handleCreateTodo(todo)
-      addTodo(todo)
-      await createSupaTodo(todo).then((response) => {
+      // Création d'un newTodo avec l'id de l'utilisateur connecté
+      const newTodo = { ...todo, user_id: userId}
+      addTodo(newTodo)
+      await createSupaTodo(newTodo).then((response) => {
         notify(response, "success")
       })
         .catch(error => {
@@ -47,8 +48,9 @@ export default function Home({ data } : HomeProps) {
       })
     } else {
       // handleEdit(todo)
-      if (updateTodo(todo)) {
-        await updateSupaTodo(todo).then((response) => {
+      const EditedTodo = { ...todo, user_id: userId}
+      if (updateTodo(EditedTodo)) {
+        await updateSupaTodo(EditedTodo).then((response) => {
         notify(response, "success")
       })
         .catch(error => {
@@ -81,7 +83,6 @@ export default function Home({ data } : HomeProps) {
     })
   }
 
-
   const handleFilterTodo = (searchTodo: string) => {
     setSearchText(searchTodo)
   }
@@ -95,12 +96,21 @@ export default function Home({ data } : HomeProps) {
     setSelectedTodo(todo)
     setShowModal(true)
   }
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      console.log(error.message)
+    } else {
+      router.push('/login')
+    }
+  }
   
   
   return (
     <>
       <main className='mainContainer'>
-       
+        <button type='button' onClick={handleLogout}>Déconnexion</button>
         <h1 className='mainTitle'>Ma Todo Liste !</h1>
         <Search 
           onChange={(searchTodo) => handleFilterTodo(searchTodo)} 
@@ -133,10 +143,24 @@ export default function Home({ data } : HomeProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await supabase
+export const getServerSideProps = async (ctx : GetServerSidePropsContext) => {
+  const supabaseSession = createPagesServerClient(ctx)
+  const { data: { session } } = await supabaseSession.auth.getSession()
+  
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  const { data } = await supabaseSession
     .from('todos')
-    .select()
+    .select('*')
+    .eq('user_id', session.user.id)
+
     
-  return { props: { data } };
-};
+  return { props: { data, session } };
+}
