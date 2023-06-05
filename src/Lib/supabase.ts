@@ -1,4 +1,4 @@
-import { SupabaseClient, createClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import { Todo } from "./todos";
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 

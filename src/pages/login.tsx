@@ -1,11 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from '@supabase/auth-helpers-react'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 
 export default function Login() {
     const router = useRouter()
-    const session = useSession()
     const supabaseClient = createPagesBrowserClient()
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

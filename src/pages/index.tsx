@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import TodoRow from '@/components/TodoRow'
 import EditTodo from '@/components/EditTodo'
 import Search from '@/components/Search'
@@ -6,7 +6,7 @@ import supabase from '../Lib/supabase'
 import { GetServerSidePropsContext  } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
 import { useTodos, Todo } from '@/Lib/todos'
-import { ToastContainer, toast, Slide, Zoom, TypeOptions } from 'react-toastify';
+import { ToastContainer, toast, Slide, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/router'
