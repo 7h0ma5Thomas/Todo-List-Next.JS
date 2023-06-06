@@ -9,6 +9,7 @@ import { ToastContainer, toast, Slide, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createPagesServerClient, createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/router'
+import { notify } from '@/Lib/notify';
 
 type HomeProps = {
   data: Todo[]
@@ -25,15 +26,6 @@ export default function Home({ data, session } : HomeProps) {
   const supabaseClient = createPagesBrowserClient()
 
   const userId = session.user.id
-
-  const notify = (message: string, type: TypeOptions, transition = Slide) => {
-    toast(message, {
-      position: "top-right",
-      type: type,
-      transition: transition,
-      theme: "colored"
-    })
-  }
 
   const handleSubmit = async (todo: Todo) => {
     if (selectedTodo === null) {
@@ -152,7 +144,7 @@ export const getServerSideProps = async (ctx : GetServerSidePropsContext) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/auth',
         permanent: false,
       },
     }
