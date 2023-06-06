@@ -24,7 +24,7 @@ export default function Login() {
       <div>
           <h1>Connexion</h1>
           <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-2 text-zinc-600'>
-              <input type="email" name="email" placeholder="Votre email" onChange={(e) => console.log(e.target.value)}/>
+              <input type="email" name="email" placeholder="Votre email"/>
               <input type="password" name="password" placeholder="Votre mot de passe"/>
               <input type="submit" value="Connexion" />
           </form>

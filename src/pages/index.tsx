@@ -2,13 +2,12 @@ import { useState } from 'react'
 import TodoRow from '@/components/TodoRow'
 import EditTodo from '@/components/EditTodo'
 import Search from '@/components/Search'
-import supabase from '../Lib/supabase'
 import { GetServerSidePropsContext  } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
 import { useTodos, Todo } from '@/Lib/todos'
 import { ToastContainer, toast, Slide, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { createPagesServerClient, createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/router'
 
 type HomeProps = {
@@ -23,6 +22,7 @@ export default function Home({ data, session } : HomeProps) {
   const [showModal, setShowModal] = useState(false)
   const { todos, addTodo, deleteTodo, checkTodo, updateTodo } = useTodos(data)
   const router = useRouter()
+  const supabaseClient = createPagesBrowserClient()
 
   const userId = session.user.id
 
@@ -48,7 +48,7 @@ export default function Home({ data, session } : HomeProps) {
       })
     } else {
       // handleEdit(todo)
-      const EditedTodo = { ...todo, user_id: userId}
+      const EditedTodo = { ...todo}
       if (updateTodo(EditedTodo)) {
         await updateSupaTodo(EditedTodo).then((response) => {
         notify(response, "success")
@@ -98,7 +98,7 @@ export default function Home({ data, session } : HomeProps) {
   }
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut()
+    const { error } = await supabaseClient.auth.signOut()
     if (error) {
       console.log(error.message)
     } else {
@@ -144,8 +144,8 @@ export default function Home({ data, session } : HomeProps) {
 }
 
 export const getServerSideProps = async (ctx : GetServerSidePropsContext) => {
-  const supabaseSession = createPagesServerClient(ctx)
-  const { data: { session } } = await supabaseSession.auth.getSession()
+  const supabaseClient = createPagesServerClient(ctx)
+  const { data: { session } } = await supabaseClient.auth.getSession()
   
   if (!session) {
     return {
@@ -156,7 +156,7 @@ export const getServerSideProps = async (ctx : GetServerSidePropsContext) => {
     }
   }
 
-  const { data } = await supabaseSession
+  const { data } = await supabaseClient
     .from('todos')
     .select('*')
     .eq('user_id', session.user.id)
