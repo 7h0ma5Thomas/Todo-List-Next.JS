@@ -2,6 +2,7 @@ import { useTodos, Todo } from "@/Lib/todos"
 import { renderHook, act } from "@testing-library/react"
 
 const firstTodo: Todo = {
+    user_id: "fdfsdfdsfdsf",
     id: "fdfsdfdsfdsf",
     name: "first todo",
     content: "first todo content",
