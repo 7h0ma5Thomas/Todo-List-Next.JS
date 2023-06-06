@@ -4,6 +4,7 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 
 export default function Login() {
     const router = useRouter()
+    const [error, setError] = React.useState<string | null>(null)
     const supabaseClient = createPagesBrowserClient()
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -14,7 +15,7 @@ export default function Login() {
             password: dataForm.get('password') as string
         })
         if (error) {
-            console.log(error)
+            setError("Email ou mot de passe incorrect")
         }
         if (data) {
             router.push('/')
@@ -24,8 +25,9 @@ export default function Login() {
       <div>
           <h1>Connexion</h1>
           <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-2 text-zinc-600'>
-              <input type="email" name="email" placeholder="Votre email"/>
-              <input type="password" name="password" placeholder="Votre mot de passe"/>
+              <input required type="email" name="email" placeholder="Votre email"/>
+              <input required type="password" name="password" placeholder="Votre mot de passe" />
+              {error && <span>{error}</span>}
               <input type="submit" value="Connexion" />
           </form>
     </div>

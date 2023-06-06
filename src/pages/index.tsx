@@ -105,6 +105,8 @@ export default function Home({ data, session } : HomeProps) {
       router.push('/login')
     }
   }
+
+  console.log(session.user)
   
   
   return (
