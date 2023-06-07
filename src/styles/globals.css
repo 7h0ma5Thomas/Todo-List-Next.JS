@@ -1,4 +1,4 @@
-@tailwind base;
+/*@tailwind base;*/
 @tailwind components;
 @tailwind utilities;
 
@@ -28,13 +28,95 @@ body {
     padding: 10px;
 }
 
-/* ////////////////// CSS /////////////////// */
+/* ////////////////// AUTH /////////////////// */
+
+.authContainer{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.auth{
+  width: 50%;
+  height: auto;
+  margin-bottom: 40px;
+}
+
+.authTitle{
+  width: 50%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 35px;
+  margin: 20px auto 100px auto;
+  border: solid white 2px;
+  text-shadow: 0px 4px 4px rgba(151, 151, 151, 0.8);
+}
+
+.authForm{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.authInput{
+  width: 40%;
+  background: none;
+  color: #ffffff;
+  border: none;
+  border-bottom: solid white 2px;
+}
+
+.inputButton{
+  width: 20%;
+  height: 50px;
+  border: solid white 2px;
+  background-color: black;
+  color: white;
+  margin-top: 40px;
+  cursor: pointer;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  box-shadow: 0 0px 8px 2px rgba(236, 236, 236, 0.8);
+}
+
+.inputButton:hover{
+  box-shadow: 0 0px 10px 4px rgb(55, 238, 83);
+  color: rgb(55, 238, 83);
+  border: none;
+}
+
+.authButton{
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: large;
+}
+
+.authButton:hover {
+  text-decoration: underline;
+}
+
+/* ////////////////// INDEX /////////////////// */
 
 *{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-size: x-large;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .mainContainer{
@@ -45,6 +127,24 @@ body {
   flex-direction: column;
   align-items: center;
   border: solid white 1px;
+}
+
+.signOutButton{
+  width: 120px;
+  font-size: medium;
+  background-color: black;
+  color: white;
+  border: none;
+  position: absolute;
+  align-self: flex-end;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.signOutButton:hover{
+  color: rgb(255, 56, 56);
+  transition: color 0.3s ease-in-out;
 }
 
 .pulse{
@@ -65,7 +165,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 35px;
+  margin-top: 45px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -111,13 +211,10 @@ body {
 .input{
   width: 70%;
   height: 50px;
-  color: grey;
-  padding-left: 10px;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-bottom: solid white 2px;
 }
 
 @media screen and (max-width: 900px) {
@@ -131,11 +228,19 @@ body {
   height: 50px;
   margin-bottom: 30px;
   background-color: #43ff64d9;
+  border-color: #31ff57d9;
+  color: white;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:hover{
+  box-shadow: 0 0px 10px 4px rgb(55, 238, 83);
+  border: none;
 }
 
 @media screen and (max-width: 900px) {
@@ -224,4 +329,106 @@ p{
   color: #575757;
 }
 
-/* classes tailwindcss personnalisées */
+/* //////////////////// MODAL //////////////// */
+
+.modalContainer{
+  position: absolute;
+  width: 99%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  margin: 10px;
+}
+
+.modalForm{
+  width: 50%;
+  padding: 50px 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: thick double white;
+}
+
+.modalTitle{
+  width: 90%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 80px auto;
+  font-size: xx-large;
+  border: solid white 2px;
+}
+
+.modalContent{
+  width: 80%;
+  height: auto;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.modalLabel{
+  display: block;
+  align-self:flex-end;
+  width: 27%;
+  margin-right: 50px;
+  border: none;
+}
+
+.modalInput{
+  display: block;
+  width: 60%;
+  color: white;
+  padding-left: 5px;
+  background-color: black;
+  border: none;
+  border-bottom: solid white 2px;
+}
+
+.modalButtonsBox{
+  margin-top: 20px;
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.greenButton, .redButton{
+  width: 190px;
+  height: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.greenButton{
+  background-color: rgb(55, 238, 83);
+  border-color: #31ff57d9;
+  color: rgb(255, 255, 255);
+}
+
+.greenButton:hover{
+  box-shadow: 0 0px 10px 4px rgb(55, 238, 83);
+  border: none;
+}
+
+.redButton{
+  background-color: rgb(255, 56, 56);
+  border-color: rgb(255, 40, 40);
+  color: white;
+}
+
+.redButton:hover{
+  box-shadow: 0 0px 10px 4px rgb(255, 56, 56);
+  border: none;
+}

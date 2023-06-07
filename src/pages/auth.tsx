@@ -53,30 +53,30 @@ export default function Auth() {
         }
     }
   return (
-    <div>
+    <div className='authContainer'>
         {connected ? (
-            <>
-                <h1>Connexion</h1>
-                <form onSubmit={handleSignIn} className='grid grid-cols-1 gap-2 text-zinc-600'>
-                    <input required type="email" name="email" placeholder="Votre email"/>
-                    <input required type="password" name="password" placeholder="Votre mot de passe" />
+            <div className='auth'>
+                <h1 className='authTitle'>Connexion</h1>
+                <form className='authForm' onSubmit={handleSignIn}>
+                    <input className='authInput' required type="email" name="email" placeholder="Adresse email"/>
+                    <input className='authInput' required type="password" name="password" placeholder="Mot de passe" />
                     {error && <span>{error}</span>}
-                    <input type="submit" value="Connexion" />
+                    <input className='inputButton' type="submit" value="Connexion" />
                 </form>
-            </>
+            </div>
         ) : (
-            <>
-                <h1>Créez votre compte</h1>
-                <form onSubmit={handleSignUp} className='grid grid-cols-1 gap-2 text-zinc-600'>
-                    <input required type="email" name="email" placeholder="Votre email"/>
-                    <input required type="password" name="password" placeholder="Votre mot de passe" />
-                    <input required type="password" name="confirmPassword" placeholder="Confirmez votre mot de passe" />
+            <div className='auth'>
+                <h1 className='authTitle'>Créer un compte</h1>
+                <form className='authForm' onSubmit={handleSignUp}>
+                    <input className='authInput' required type="email" name="email" placeholder="Adresse email"/>
+                    <input className='authInput' required type="password" name="password" placeholder="Mot de passe" />
+                    <input className='authInput' required type="password" name="confirmPassword" placeholder="Confirmez mot de passe" />
                     {error && <span>{error}</span>}
-                    <input type="submit" value="inscription" />
+                    <input className='inputButton' type="submit" value="inscription" />
                 </form>
-            </>
+            </div>
         )}
-        <button onClick={() => setConnected(!connected)}>{connected ? "Vous n'avez pas encore de compte" : "Déja inscrit"}</button>
+        <button className='authButton' onClick={() => setConnected(!connected)}>{connected ? "Vous n'avez pas encore de compte ?" : "Déja inscrit ?"}</button>
         <ToastContainer />
     </div>
   )

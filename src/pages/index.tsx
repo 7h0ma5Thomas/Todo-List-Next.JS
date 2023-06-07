@@ -5,7 +5,7 @@ import Search from '@/components/Search'
 import { GetServerSidePropsContext  } from "next";
 import { createSupaTodo, deleteSupaTodo, checkSupaTodo, updateSupaTodo } from '../Lib/supabase'
 import { useTodos, Todo } from '@/Lib/todos'
-import { ToastContainer, toast, Slide, TypeOptions } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createPagesServerClient, createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/router'
@@ -94,7 +94,7 @@ export default function Home({ data, session } : HomeProps) {
     if (error) {
       console.log(error.message)
     } else {
-      router.push('/login')
+      router.push('/auth')
     }
   }
 
@@ -104,13 +104,13 @@ export default function Home({ data, session } : HomeProps) {
   return (
     <>
       <main className='mainContainer'>
-        <button type='button' onClick={handleLogout}>Déconnexion</button>
+        <button className='signOutButton' type='button' onClick={handleLogout}>Se déconnecter</button>
         <h1 className='mainTitle'>Ma Todo Liste !</h1>
         <Search 
           onChange={(searchTodo) => handleFilterTodo(searchTodo)} 
         />
         <div className='todosContainer'>
-          <button className='button' onClick={() => setShowModal(true)}>Ajouter</button>
+          <button className='button' onClick={() => setShowModal(true)}>Ajouter une todo</button>
           <div className='allTodos'>
             {filteredTodos.map((todo) => (
                 < TodoRow 
