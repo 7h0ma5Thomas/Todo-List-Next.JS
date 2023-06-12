@@ -89,6 +89,11 @@ export default function Home({ data, session } : HomeProps) {
     setShowModal(true)
   }
 
+  const handleCloseModal = () => {
+    setSelectedTodo(null)
+    setShowModal(false)
+  }
+
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut()
     if (error) {
@@ -129,7 +134,7 @@ export default function Home({ data, session } : HomeProps) {
         {showModal && <EditTodo 
           onSubmit={(todo) => handleSubmit(todo)} 
           todo={selectedTodo}
-          onClose={() => setShowModal(false)}
+          onClose={() => handleCloseModal()}
           notify={notify}
         />}
         </>
@@ -140,6 +145,7 @@ export default function Home({ data, session } : HomeProps) {
 export const getServerSideProps = async (ctx : GetServerSidePropsContext) => {
   const supabaseClient = createPagesServerClient(ctx)
   const { data: { session } } = await supabaseClient.auth.getSession()
+  console.log(session);
   
   if (!session) {
     return {

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import React, { FormEvent } from "react";
+import React from "react";
 import { Todo } from "@/Lib/todos";
 import { TypeOptions } from "react-toastify";
 
@@ -38,6 +38,8 @@ export default function EditTodo({ onSubmit, todo, onClose, notify } : EditTodoP
     }
     onClose()
   }
+  console.log(todo);
+  
 
   return (
     <div className='modalContainer'>
