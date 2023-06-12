@@ -25,17 +25,6 @@ export default function Auth() {
             router.push('/')
         }
     }
-
-    async function signInWithGitHub() {
-        const { data, error } = await supabaseClient.auth.signInWithOAuth({
-          provider: 'github',
-        })
-        console.log(data, error);
-        
-        if (data) {
-            router.push('/')
-        }
-      }
       
     const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -65,15 +54,6 @@ export default function Auth() {
         }
     }
 
-    const handleLogout = async () => {
-        const { error } = await supabaseClient.auth.signOut()
-        if (error) {
-          console.log(error.message)
-        } else {
-          router.push('/auth')
-        }
-      }
-
   return (
     <div className='authContainer'>
         {connected ? (
@@ -98,10 +78,8 @@ export default function Auth() {
                 </form>
             </div>
         )}
-        <button onClick={signInWithGitHub}></button>
         <button className='authButton' onClick={() => setConnected(!connected)}>{connected ? "Vous n'avez pas encore de compte ?" : "Déja inscrit ?"}</button>
         <ToastContainer />
-        <button className='signOutButton' type='button' onClick={handleLogout}>Se déconnecter</button>
     </div>
   )
 }
