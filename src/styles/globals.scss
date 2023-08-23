@@ -172,7 +172,7 @@ body {
 
 .pulse{
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   position: absolute;
   z-index: -1;
   animation: Pulse 5s ease-in-out 0s infinite normal both;
@@ -359,7 +359,7 @@ p{
 
 .modalContainer{
   position: absolute;
-  width: 95%;
+  width: 90%;
   height: auto;
   top: 200px;
   left: 1%;
@@ -369,11 +369,14 @@ p{
   align-items: center;
   background: black;
   margin: 10px;
+  @media screen and (min-width: 375px) {
+    left: 2%;
+    width: 91%;
+  }
   @media screen and (min-width: 1080px) {
     width: 95%;
     height: auto;
     top: 200px;
-    left: 2%;
   }
   @media screen and (min-width: 1920px) {
     width: 40%;
