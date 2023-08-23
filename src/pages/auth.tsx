@@ -63,7 +63,7 @@ export default function Auth() {
                     <input className='authInput' required type="email" name="email" placeholder="Adresse email"/>
                     <input className='authInput' required type="password" name="password" placeholder="Mot de passe" />
                     {error && <span>{error}</span>}
-                    <input className='inputButton' type="submit" value="Connexion" />
+                    <input className='inputButton' type="submit" value="Se connecter" />
                 </form>
             </div>
         ) : (

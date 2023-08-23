@@ -40,22 +40,38 @@ body {
 }
 
 .auth{
-  width: 50%;
+  width: 100%;
   height: auto;
   margin-bottom: 40px;
+  @media screen and (min-width: 360px) {
+    width: 90%;
+  }
+  @media screen and (min-width: 800px) {
+    width: 50%;
+  }
+  @media screen and (min-width: 1080px) {
+    width: 45%;
+  }
 }
 
 .authTitle{
-  width: 50%;
+  width: 100%;
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 35px;
+  font-size: x-large;
   margin: 20px auto 100px auto;
   border: solid white 2px;
   text-shadow: 0px 4px 4px rgba(151, 151, 151, 0.8);
+  @media screen and (min-width: 800px) {
+    font-size: xx-large;
+  }
+  @media screen and (min-width: 1920px) {
+    width: 50%;
+    height: 80px;
+  }
 }
 
 .authForm{
@@ -68,15 +84,18 @@ body {
 }
 
 .authInput{
-  width: 40%;
+  width: 100%;
   background: none;
   color: #ffffff;
   border: none;
   border-bottom: solid white 2px;
+  @media screen and (min-width: 1920px) {
+    width: 40%;
+  }
 }
 
 .inputButton{
-  width: 20%;
+  width: 190px;
   height: 50px;
   border: solid white 2px;
   background-color: black;
@@ -130,16 +149,20 @@ body {
 }
 
 .signOutButton{
-  width: 120px;
+  width: 90%;
   font-size: medium;
   background-color: black;
   color: white;
   border: none;
   position: absolute;
-  align-self: flex-end;
+  align-self: center;
   right: 10px;
   top: 10px;
   cursor: pointer;
+  @media screen and (min-width: 800px) {
+    width: 120px;
+    align-self: flex-end;
+  }
 }
 
 .signOutButton:hover{
@@ -158,8 +181,8 @@ body {
 
 .mainTitle{
   height: 80px;
-  width: 30%;
-  font-size: xx-large;
+  width: 90%;
+  font-size: x-large;
   font-weight: bolder;
   border: solid white 1px;
   display: flex;
@@ -172,64 +195,67 @@ body {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   box-shadow: 0 0px 8px 2px rgba(236, 236, 236, 0.8);
-}
-
-@media screen and (max-width: 900px) {
-  .mainTitle{
-    width: 260px;
+  @media screen and (min-width: 800px) {
+    width: 280px;
+    font-size: xx-large;
   }
 }
 
 .todosContainer{
   height: auto;
-  width: 30%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-@media screen and (max-width: 900px) {
-  .todosContainer{
-    width: 65%;
+  @media screen and (min-width: 900px) {
+    width: 35%;
+  }
+  @media screen and (min-width: 1080px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 1920px) {
+    width: 40%;
   }
 }
 
 .addTodoContainer{
-  width: 30%;
+  width: 90%;
   height: auto;
   display: flex;
   justify-content: center;
   margin: 100px auto 40px auto;
-}
-
-@media screen and (max-width: 900px) {
-  .addTodoContainer{
-    width: 260px;
+  @media screen and (min-width: 900px) {
+    width: 100%;
   }
 }
 
 .input{
-  width: 70%;
+  width: 90%;
   height: 50px;
   color: white;
   background-color: black;
   border: none;
   border-bottom: solid white 2px;
-}
-
-@media screen and (max-width: 900px) {
-  .input{
-    width: 100%;
+  @media screen and (min-width: 800px) {
+    width: 35%;
+  }
+  @media screen and (min-width: 1080px) {
+    width: 25%;
+  }
+  @media screen and (min-width: 1920px) {
+    width: 12%;
   }
 }
 
 .button{
-  width: 45%;
+  width: 190px;
   height: 50px;
   margin-bottom: 30px;
   background-color: #43ff64d9;
   border-color: #31ff57d9;
   color: white;
+  font-size: large;
+  font-weight: bold;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -243,17 +269,14 @@ body {
   border: none;
 }
 
-@media screen and (max-width: 900px) {
-  .button{
-    width: 170px;
-  }
-}
-
 
 .allTodos{
   width: 100%;
   height: auto;
   border-top: solid 1px rgb(214, 214, 214);
+  @media screen and (min-width: 800px) {
+    width: 70%;
+  }
 }
 
 @keyframes Pulse {
@@ -309,8 +332,11 @@ body {
   width: 30px;
   height: 30px;
   border: solid #e5e7eb 2px;
-  margin: 8px 25px 0 0;
+  margin: 45px 15px 0 0;
   cursor: pointer;
+  @media screen and (min-width: 375px) {
+    margin: 8px 25px 0 0;
+  }
 }
 
 .completed {
@@ -333,26 +359,45 @@ p{
 
 .modalContainer{
   position: absolute;
-  width: 99%;
-  height: 100vh;
-  left: 0;
-  top: 0;
+  width: 95%;
+  height: auto;
+  top: 200px;
+  left: 1%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: black;
   margin: 10px;
+  @media screen and (min-width: 1080px) {
+    width: 95%;
+    height: auto;
+    top: 200px;
+    left: 2%;
+  }
+  @media screen and (min-width: 1920px) {
+    width: 40%;
+    height: auto;
+    top: 200px;
+    left: 30%;
+  }
 }
 
 .modalForm{
-  width: 50%;
+  width: 90%;
   padding: 50px 0;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: thick double white;
+  @media screen and (min-width: 1080px) {
+    width: 70%;
+  }
+  @media screen and (min-width: 1920px) {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .modalTitle{
@@ -362,41 +407,83 @@ p{
   justify-content: center;
   align-items: center;
   margin: 0 auto 80px auto;
-  font-size: xx-large;
+  font-size: large;
   border: solid white 2px;
+  @media screen and (min-width: 375px) {
+    font-size: x-large;
+  }
+  @media screen and (min-width: 800px) {
+    width: 40%;
+  }
+  @media screen and (min-width: 1080px) {
+    width: 50%;
+    font-size: xx-large;
+  }
 }
 
 .modalContent{
-  width: 80%;
+  width: 90%;
   height: auto;
   display: flex;
+  flex-direction: column;
   margin-bottom: 40px;
+  @media screen and (min-width: 800px) {
+    width: 60%;
+    flex-direction: row;
+  }
+  @media screen and (min-width: 1080px) {
+    width: 70%;
+  }
 }
 
 .modalLabel{
-  display: block;
-  align-self:flex-end;
-  width: 27%;
-  margin-right: 50px;
+  width: 70%;
   border: none;
+  @media screen and (min-width: 800px) {
+    width: 35%;
+    margin-right: 20px;
+  }
+  @media screen and (min-width: 1080px) {
+    display: block;
+    align-self:flex-end;
+    width: 27%;
+    margin-right: 50px;
+  }
 }
 
 .modalInput{
-  display: block;
-  width: 60%;
+  width: 100%;
   color: white;
   padding-left: 5px;
   background-color: black;
   border: none;
   border-bottom: solid white 2px;
+  @media screen and (min-width: 800px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 1080px) {
+    display: block;
+    width: 60%;
+  }
 }
 
 .modalButtonsBox{
   margin-top: 20px;
-  width: 60%;
+  width: 100%;
   height: auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  @media screen and (min-width: 800px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  @media screen and (min-width: 1080px) {
+    margin-top: 20px;
+    width: 60%;
+    justify-content: space-between;
+  }
 }
 
 .greenButton, .redButton{
@@ -415,6 +502,11 @@ p{
   background-color: rgb(55, 238, 83);
   border-color: #31ff57d9;
   color: rgb(255, 255, 255);
+  margin-bottom: 35px;
+  @media screen and (min-width: 800px) {
+    margin-bottom: 0;
+    margin-right: 35px;
+  }
 }
 
 .greenButton:hover{
